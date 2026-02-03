@@ -77,6 +77,15 @@ footer {
   font-size: 12px;
   color: #8D7860;
 }
+  .title-image {
+  margin-bottom: 20px;
+}
+
+.title-image img {
+  max-width: 280px;
+  width: 100%;
+  height: auto;
+}
 
 </style>
 </head>
@@ -93,7 +102,9 @@ footer {
   </div>
 
   <!-- 결과 영역 -->
-<h2>🎲 오늘의 비즈는?</h2>
+<div class="title-image">
+  <img src="https://i.imgur.com/WsUkZKY.png" alt="오늘의 비즈">
+</div>
 
 <button id="drawBtn" onclick="drawOnce()">비즈 뽑기</button>
 
@@ -115,6 +126,8 @@ footer {
 </div>
 
 <script>
+
+  const TEST_MODE = true;
   // 날짜 (자정 기준)
   function getToday() {
     const now = new Date();
@@ -157,13 +170,16 @@ footer {
   }
 
   function drawOnce() {
-    const today = getToday();
-    const savedDate = localStorage.getItem("lastDrawDate");
+   if (!TEST_MODE) {
+  const today = getToday();
+  const savedDate = localStorage.getItem("lastDrawDate");
 
-    if (savedDate === today) {
-      alert("오늘은 이미 결과를 확인했어요!\n내일 다시 와주세요 😊");
-      return;
-    }
+  if (savedDate === today) {
+    alert("오늘은 이미 결과를 확인했어요!\n내일 다시 와주세요 😊");
+    return;
+  }
+}
+
 
     const result = weightedRandom(items);
 
@@ -175,12 +191,15 @@ footer {
   }
 
   // 페이지 로드 시 오늘 이미 뽑았으면 버튼 비활성화
-  window.onload = function () {
+window.onload = function () {
+  if (!TEST_MODE) {
     const today = getToday();
     if (localStorage.getItem("lastDrawDate") === today) {
       document.getElementById("drawBtn").disabled = true;
     }
-  };
+  }
+};
+
 </script>
 
 </body>
