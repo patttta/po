@@ -6,73 +6,78 @@
 
 <style>
   body {
-    margin: 0;
-    padding: 0;
-    background: #f5f5f5;
-    font-family: Arial, sans-serif;
-    text-align: center;
-  }
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+  text-align: center;
+  padding: 60px;
+}
 
-  .container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 40px 20px;
-  }
+.logo-wrap {
+  text-align: center;
+  margin-bottom: 30px;
+}
 
-  .logo-wrap img {
-    max-width: 350px;
-    cursor: pointer;
-    margin-bottom: 30px;
-  }
+.logo-wrap img {
+  max-width: 350px;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
 
-  .result-box {
-    width: 100%;
-    height: 320px;
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 30px;
-  }
+h2 {
+  color: #8D7860;
+}
 
-  .result-box img {
-    max-width: 220px;
-    max-height: 200px;
-    margin-bottom: 15px;
-  }
+button {
+  padding: 14px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 15px;
+  color: #fff;
+  cursor: pointer;
+  margin-bottom: 20px;
+  background: #9ABF62;
+}
 
-  .result-text {
-    font-size: 18px;
-    color: #333;
-  }
+button:disabled {
+  background: #FA8B60;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
 
-  h2 {
-      color: #8D7860;
-    }
+.result {
+  margin-top: 25px;
+}
 
-  button {
-    padding: 14px 24px;
-    font-size: 16px;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    background: #4a6cf7;
-    color: white;
-  }
+.image-box {
+  width: 100%;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: 10px;
+  margin-bottom: 16px;
+}
 
-  button:disabled {
-    background: #aaa;
-    cursor: not-allowed;
-  }
+.image-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+}
 
-  .copyright {
-    margin-top: 100px;
-    font-size: 12px;
-    color: #8D7860;
-  }
+.result-text {
+  font-size: 20px;
+  font-weight: 600;
+  color: #8D7860;
+}
+
+footer {
+  margin-top: 100px;
+  font-size: 12px;
+  color: #8D7860;
+}
+
 </style>
 </head>
 
@@ -88,12 +93,16 @@
   </div>
 
   <!-- 결과 영역 -->
-  <div class="result-box">
-    <img id="resultImage" src="" alt="">
-    <div id="resultText" class="result-text">
-      <h2>랜덤 비즈</h2>
-    </div>
+<h2>🎲 오늘의 비즈는?</h2>
+
+<button id="drawBtn" onclick="drawOnce()">비즈 뽑기</button>
+
+<div class="result">
+  <div class="image-box">
+    <img id="resultImage" src="">
   </div>
+  <div id="resultText" class="result-text"></div>
+</div>
 
   <!-- 버튼 -->
   <button id="drawBtn" onclick="drawOnce()">비즈 뽑기</button>
