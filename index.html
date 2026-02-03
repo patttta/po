@@ -37,6 +37,7 @@
   }
 
   .image-box {
+    position: relative;
     width: 100%;
     height: 260px;
     display: flex;
@@ -44,13 +45,26 @@
     justify-content: center;
     overflow: hidden;
   }
-
+.base-image {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  opacity: 1; /* 연하면 0.5~0.7 추천 */
+}
   .image-box img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
     border-radius: 12px;
   }
+  .result-image {
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  z-index: 2;
+}
 
   .copyright {
     margin-top: 100px;
@@ -90,8 +104,10 @@
   <!-- 결과 -->
   <div class="result" id="resultBox">
     <div class="image-box">
-      <img id="resultImage" src="">
+      <img class="base-image" src="blob:https://imgur.com/7f1fa65e-6f95-4598-b6e3-6cee0b651e59">
+      <img id="resultImage" class="result-image" src="">
     </div>
+
   </div>
 
   <!-- 카피라이트 -->
