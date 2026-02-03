@@ -107,7 +107,9 @@
       <img class="base-image" src="https://i.imgur.com/hCFMu8z.png">
       <img id="resultImage" class="result-image" src="">
     </div>
-
+<button id="saveBtn" onclick="saveResultImage()" style="display:none;">
+  이미지 저장하기
+</button>
   </div>
 
   <!-- 카피라이트 -->
@@ -170,7 +172,7 @@
 
     const box = document.getElementById("resultBox");
     const img = document.getElementById("resultImage");
-
+document.getElementById("saveBtn").style.display = "inline-block";
     img.src = result.img;
     box.style.display = "block";
 
@@ -178,6 +180,21 @@
     void img.offsetWidth;
     img.classList.add("pop");
   }
+  function saveResultImage() {
+  const img = document.getElementById("resultImage");
+
+  if (!img.src) {
+    alert("저장할 이미지가 없어요!");
+    return;
+  }
+
+  const link = document.createElement("a");
+  link.href = img.src;
+  link.download = "pongmoco_beads.png"; // 저장 파일명
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
 </script>
 
 </body>
