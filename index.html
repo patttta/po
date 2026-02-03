@@ -21,25 +21,9 @@
     cursor: pointer;
   }
 
-  button {
-    padding: 14px 24px;
-    font-size: 16px;
-    border: none;
-    border-radius: 15px;
-    color: #fff;
-    cursor: pointer;
-    margin-bottom: 20px;
-    background: #9ABF62;
-  }
-
-  button:disabled {
-    background: #FA8B60;
-    cursor: not-allowed;
-    opacity: 0.8;
-  }
-
   .title-image {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    cursor: pointer;
   }
 
   .title-image img {
@@ -47,11 +31,9 @@
     width: 100%;
   }
 
-  /* 결과 영역 */
   .result {
     display: none;
     margin-top: 25px;
-    position: relative;
   }
 
   .image-box {
@@ -61,8 +43,6 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    margin-bottom: 16px;
-    z-index: 1;
   }
 
   .image-box img {
@@ -70,14 +50,6 @@
     max-height: 100%;
     object-fit: contain;
     border-radius: 12px;
-  }
-
-  .result-text {
-    font-size: 20px;
-    font-weight: 600;
-    color: #8D7860;
-    z-index: 1;
-    position: relative;
   }
 
   .copyright {
@@ -96,44 +68,6 @@
   .pop {
     animation: pop 0.35s ease-out;
   }
-
-  /* 희귀 비즈 연출 */
-  .result.rare {
-    overflow: hidden;
-  }
-
-  .result.rare::before {
-    content: "";
-    position: absolute;
-    inset: -50%;
-    background: repeating-conic-gradient(
-      rgba(255, 215, 0, 0.25) 0deg 10deg,
-      transparent 10deg 20deg
-    );
-    animation: spin 6s linear infinite;
-    z-index: 0;
-  }
-
-  .result.rare::after {
-    content: "✨ ✦ ✨ ✦ ✨";
-    position: absolute;
-    top: 12%;
-    width: 100%;
-    text-align: center;
-    font-size: 28px;
-    color: gold;
-    animation: sparkle 1.5s ease-in-out infinite;
-    z-index: 2;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-
-  @keyframes sparkle {
-    0%,100% { opacity: 0.3; }
-    50% { opacity: 1; }
-  }
 </style>
 </head>
 
@@ -148,20 +82,16 @@
     </a>
   </div>
 
-  <!-- 타이틀 -->
-  <div class="title-image">
+  <!-- 클릭용 타이틀 이미지 -->
+  <div class="title-image" onclick="drawOnce()">
     <img src="https://i.imgur.com/WsUkZKY.png" alt="오늘의 비즈">
   </div>
-
-  <!-- 버튼 -->
-  <button id="drawBtn" onclick="drawOnce()">비즈 뽑기</button>
 
   <!-- 결과 -->
   <div class="result" id="resultBox">
     <div class="image-box">
       <img id="resultImage" src="">
     </div>
-    <div id="resultText" class="result-text"></div>
   </div>
 
   <!-- 카피라이트 -->
@@ -177,33 +107,33 @@
   function getToday() {
     const d = new Date();
     return d.getFullYear() + "-" +
-      String(d.getMonth()+1).padStart(2,"0") + "-" +
-      String(d.getDate()).padStart(2,"0");
+      String(d.getMonth() + 1).padStart(2, "0") + "-" +
+      String(d.getDate()).padStart(2, "0");
   }
 
   const items = [
-    { img:"https://i.imgur.com/AzLRt62.png", text:"1", weight:40 },
-    { img:"https://i.imgur.com/aj93cdr.png", text:"2", weight:40 },
-    { img:"https://i.imgur.com/Cd1wCSR.png", text:"3", weight:40 },
-    { img:"https://i.imgur.com/EJgJuYU.png", text:"4", weight:40 },
-    { img:"https://i.imgur.com/PG9LlCU.png", text:"5", weight:40 },
-    { img:"https://i.imgur.com/uZICWWs.png", text:"6", weight:40 },
-    { img:"https://i.imgur.com/4haWS1t.png", text:"7", weight:20 },
-    { img:"https://i.imgur.com/9EFrKWH.png", text:"8", weight:20 },
-    { img:"https://i.imgur.com/5VO6tms.png", text:"9", weight:20 },
-    { img:"https://i.imgur.com/pjmbbnr.png", text:"10", weight:20 },
-    { img:"https://i.imgur.com/stAEGUa.png", text:"11", weight:8 },
-    { img:"https://i.imgur.com/8UEBiRl.png", text:"12", weight:8 },
-    { img:"https://i.imgur.com/NzPHyDO.png", text:"13", weight:8 },
-    { img:"https://i.imgur.com/XmEdvW2.png", text:"14", weight:8 },
-    { img:"https://i.imgur.com/VNaBcla.png", text:"15", weight:8 },
-    { img:"https://i.imgur.com/AZdtAbt.png", text:"16", weight:2 },
-    { img:"https://i.imgur.com/RQNwhO3.png", text:"17", weight:2 }
+    { img:"https://i.imgur.com/AzLRt62.png", weight:40 },
+    { img:"https://i.imgur.com/aj93cdr.png", weight:40 },
+    { img:"https://i.imgur.com/Cd1wCSR.png", weight:40 },
+    { img:"https://i.imgur.com/EJgJuYU.png", weight:40 },
+    { img:"https://i.imgur.com/PG9LlCU.png", weight:40 },
+    { img:"https://i.imgur.com/uZICWWs.png", weight:40 },
+    { img:"https://i.imgur.com/4haWS1t.png", weight:20 },
+    { img:"https://i.imgur.com/9EFrKWH.png", weight:20 },
+    { img:"https://i.imgur.com/5VO6tms.png", weight:20 },
+    { img:"https://i.imgur.com/pjmbbnr.png", weight:20 },
+    { img:"https://i.imgur.com/stAEGUa.png", weight:8 },
+    { img:"https://i.imgur.com/8UEBiRl.png", weight:8 },
+    { img:"https://i.imgur.com/NzPHyDO.png", weight:8 },
+    { img:"https://i.imgur.com/XmEdvW2.png", weight:8 },
+    { img:"https://i.imgur.com/VNaBcla.png", weight:8 },
+    { img:"https://i.imgur.com/AZdtAbt.png", weight:2 },
+    { img:"https://i.imgur.com/RQNwhO3.png", weight:2 }
   ];
 
   function weightedRandom(list) {
-    const total = list.reduce((s,i)=>s+i.weight,0);
-    let r = Math.random()*total;
+    const total = list.reduce((s, i) => s + i.weight, 0);
+    let r = Math.random() * total;
     for (const item of list) {
       r -= item.weight;
       if (r < 0) return item;
@@ -214,7 +144,7 @@
     if (!TEST_MODE) {
       const today = getToday();
       if (localStorage.getItem("lastDrawDate") === today) {
-        alert("오늘은 이미 확인했어요!");
+        alert("오늘은 이미 비즈를 확인했어요!");
         return;
       }
       localStorage.setItem("lastDrawDate", today);
@@ -224,31 +154,14 @@
 
     const box = document.getElementById("resultBox");
     const img = document.getElementById("resultImage");
-    const text = document.getElementById("resultText");
-
-    box.classList.remove("rare");
-    if (result.weight <= 8) box.classList.add("rare");
 
     img.src = result.img;
-    text.innerText = result.text;
-
     box.style.display = "block";
 
     img.classList.remove("pop");
-    text.classList.remove("pop");
     void img.offsetWidth;
     img.classList.add("pop");
-    text.classList.add("pop");
-
-    document.getElementById("drawBtn").disabled = true;
   }
-
-  window.onload = function () {
-    if (!TEST_MODE && localStorage.getItem("lastDrawDate") === getToday()) {
-      document.getElementById("drawBtn").disabled = true;
-      document.getElementById("resultBox").style.display = "block";
-    }
-  };
 </script>
 
 </body>
