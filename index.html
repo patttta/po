@@ -22,13 +22,19 @@
   }
 
   .title-image {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     cursor: pointer;
   }
 
   .title-image img {
     max-width: 280px;
     width: 100%;
+  }
+
+  .notice {
+    font-size: 14px;
+    color: #8D7860;
+    margin-bottom: 20px;
   }
 
   .result {
@@ -45,26 +51,21 @@
     justify-content: center;
     overflow: hidden;
   }
-.base-image {
-  position: absolute;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  opacity: 1; /* 연하면 0.5~0.7 추천 */
-}
-  .image-box img {
+
+  .base-image {
+    position: absolute;
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    border-radius: 12px;
   }
+
   .result-image {
-  position: relative;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  z-index: 2;
-}
+    position: relative;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    z-index: 2;
+  }
 
   .copyright {
     margin-top: 100px;
@@ -72,7 +73,6 @@
     color: #8D7860;
   }
 
-  /* 팝 애니메이션 */
   @keyframes pop {
     0% { opacity: 0; transform: scale(0.85); }
     60% { opacity: 1; transform: scale(1.05); }
@@ -96,23 +96,22 @@
     </a>
   </div>
 
-  <!-- 클릭용 타이틀 이미지 -->
+  <!-- 클릭용 타이틀 -->
   <div class="title-image" onclick="drawOnce()">
     <img src="https://i.imgur.com/WsUkZKY.png" alt="오늘의 비즈">
   </div>
 
+  <!-- 안내 문구 -->
+  <div id="notice" class="notice"></div>
+
   <!-- 결과 -->
   <div class="result" id="resultBox">
     <div class="image-box">
-      <img class="base-image" src="https://i.imgur.com/hCFMu8z.png">
+      <img class="base-image" src="https://i.imgur.com/KQpOTCP.png">
       <img id="resultImage" class="result-image" src="">
     </div>
-<button id="saveBtn" onclick="saveResultImage()" style="display:none;">
-  이미지 저장하기
-</button>
   </div>
 
-  <!-- 카피라이트 -->
   <div class="copyright">
     © Pong PocoPoco Project
   </div>
@@ -120,8 +119,6 @@
 </div>
 
 <script>
-  const TEST_MODE = true;
-
   function getToday() {
     const d = new Date();
     return d.getFullYear() + "-" +
@@ -130,71 +127,83 @@
   }
 
   const items = [
-    { img:"https://i.imgur.com/AzLRt62.png", weight:40 },
-    { img:"https://i.imgur.com/aj93cdr.png", weight:40 },
-    { img:"https://i.imgur.com/Cd1wCSR.png", weight:40 },
-    { img:"https://i.imgur.com/EJgJuYU.png", weight:40 },
-    { img:"https://i.imgur.com/PG9LlCU.png", weight:40 },
-    { img:"https://i.imgur.com/uZICWWs.png", weight:40 },
-    { img:"https://i.imgur.com/4haWS1t.png", weight:20 },
-    { img:"https://i.imgur.com/9EFrKWH.png", weight:20 },
-    { img:"https://i.imgur.com/5VO6tms.png", weight:20 },
-    { img:"https://i.imgur.com/pjmbbnr.png", weight:20 },
-    { img:"https://i.imgur.com/stAEGUa.png", weight:8 },
-    { img:"https://i.imgur.com/8UEBiRl.png", weight:8 },
-    { img:"https://i.imgur.com/NzPHyDO.png", weight:8 },
-    { img:"https://i.imgur.com/XmEdvW2.png", weight:8 },
-    { img:"https://i.imgur.com/VNaBcla.png", weight:8 },
-    { img:"https://i.imgur.com/AZdtAbt.png", weight:2 },
-    { img:"https://i.imgur.com/RQNwhO3.png", weight:2 }
+    "https://i.imgur.com/AzLRt62.png",
+    "https://i.imgur.com/aj93cdr.png",
+    "https://i.imgur.com/Cd1wCSR.png",
+    "https://i.imgur.com/EJgJuYU.png",
+    "https://i.imgur.com/PG9LlCU.png",
+    "https://i.imgur.com/uZICWWs.png",
+    "https://i.imgur.com/4haWS1t.png",
+    "https://i.imgur.com/9EFrKWH.png",
+    "https://i.imgur.com/5VO6tms.png",
+    "https://i.imgur.com/pjmbbnr.png",
+    "https://i.imgur.com/stAEGUa.png",
+    "https://i.imgur.com/8UEBiRl.png",
+    "https://i.imgur.com/NzPHyDO.png",
+    "https://i.imgur.com/XmEdvW2.png",
+    "https://i.imgur.com/VNaBcla.png",
+    "https://i.imgur.com/AZdtAbt.png",
+    "https://i.imgur.com/RQNwhO3.png",
+    "https://i.imgur.com/phQ7N6n.png",
+    "https://i.imgur.com/A4vtMen.png",
+    "https://i.imgur.com/3tQB0vq.png",
+    "https://i.imgur.com/uojv4LQ.png",
+    "https://i.imgur.com/z3rgYCe.png",
+    "https://i.imgur.com/KXlRxCk.png",
+    "https://i.imgur.com/CelVQfw.png",
+    "https://i.imgur.com/aEChwJl.png",
+    "https://i.imgur.com/X1pijxv.png",
+    "https://i.imgur.com/40SWC41.png",
+    "https://i.imgur.com/uJjgD9j.png",
+    "https://i.imgur.com/oCQqV0K.png"
+        
   ];
 
-  function weightedRandom(list) {
-    const total = list.reduce((s, i) => s + i.weight, 0);
-    let r = Math.random() * total;
-    for (const item of list) {
-      r -= item.weight;
-      if (r < 0) return item;
+  function drawOnce() {
+    const today = getToday();
+    const savedDate = localStorage.getItem("lastDrawDate");
+    const savedImg = localStorage.getItem("lastDrawImg");
+
+    if (savedDate === today && savedImg) {
+      showResult(savedImg);
+      document.getElementById("notice").innerText =
+        "오늘의 비즈\n자정 이후 다시 뽑을 수 있어요!";
+      return;
     }
+
+    const randomImg = items[Math.floor(Math.random() * items.length)];
+
+    localStorage.setItem("lastDrawDate", today);
+    localStorage.setItem("lastDrawImg", randomImg);
+
+    document.getElementById("notice").innerText = "";
+    showResult(randomImg);
   }
 
-  function drawOnce() {
-    if (!TEST_MODE) {
-      const today = getToday();
-      if (localStorage.getItem("lastDrawDate") === today) {
-        alert("오늘은 이미 비즈를 확인했어요!");
-        return;
-      }
-      localStorage.setItem("lastDrawDate", today);
-    }
-
-    const result = weightedRandom(items);
-
+  function showResult(imgSrc) {
     const box = document.getElementById("resultBox");
     const img = document.getElementById("resultImage");
-document.getElementById("saveBtn").style.display = "inline-block";
-    img.src = result.img;
+
+    img.src = imgSrc;
     box.style.display = "block";
 
     img.classList.remove("pop");
     void img.offsetWidth;
     img.classList.add("pop");
   }
-  function saveResultImage() {
-  const img = document.getElementById("resultImage");
 
-  if (!img.src) {
-    alert("저장할 이미지가 없어요!");
-    return;
-  }
+  // 페이지 로드시: 오늘 이미 뽑았으면 자동 표시
+  window.onload = function () {
+    const today = getToday();
+    const savedDate = localStorage.getItem("lastDrawDate");
+    const savedImg = localStorage.getItem("lastDrawImg");
 
-  const link = document.createElement("a");
-  link.href = img.src;
-  link.download = "pongmoco_beads.png"; // 저장 파일명
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}
+    if (savedDate === today && savedImg) {
+      showResult(savedImg);
+      document.getElementById("notice").innerText =
+        "오늘의 비즈\n자정 이후 다시 뽑을 수 있어요!";
+    }
+  };
 </script>
 
 </body>
