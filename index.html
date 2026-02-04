@@ -119,6 +119,8 @@
 </div>
 
 <script>
+  const TEST_MODE = true;
+
   function getToday() {
     const d = new Date();
     return d.getFullYear() + "-" +
@@ -164,17 +166,21 @@
     const savedDate = localStorage.getItem("lastDrawDate");
     const savedImg = localStorage.getItem("lastDrawImg");
 
-    if (savedDate === today && savedImg) {
-      showResult(savedImg);
-      document.getElementById("notice").innerText =
-        "오늘의 비즈는 이미 뽑았어요.\n자정 이후 다시 뽑을 수 있어요!";
-      return;
-    }
+    if (!TEST_MODE && savedDate === today && savedImg) {
+  showResult(savedImg);
+  document.getElementById("notice").innerText =
+    "오늘의 비즈는 이미 뽑았어요.\n자정 이후 다시 뽑을 수 있어요!";
+  return;
+}
+
 
     const randomImg = items[Math.floor(Math.random() * items.length)];
 
-    localStorage.setItem("lastDrawDate", today);
-    localStorage.setItem("lastDrawImg", randomImg);
+    if (!TEST_MODE) {
+      localStorage.setItem("lastDrawDate", today);
+      localStorage.setItem("lastDrawImg", randomImg);
+    }
+
 
     document.getElementById("notice").innerText = "";
     showResult(randomImg);
@@ -198,11 +204,11 @@
     const savedDate = localStorage.getItem("lastDrawDate");
     const savedImg = localStorage.getItem("lastDrawImg");
 
-    if (savedDate === today && savedImg) {
-      showResult(savedImg);
-      document.getElementById("notice").innerText =
-        "오늘의 비즈는 이미 뽑았어요.\n자정 이후 다시 뽑을 수 있어요!";
-    }
+    if (!TEST_MODE && savedDate === today && savedImg) {
+  showResult(savedImg);
+  document.getElementById("notice").innerText =
+    "오늘의 비즈는 이미 뽑았어요. ✨\n자정 이후 다시 뽑을 수 있어요!";
+}
   };
 </script>
 
